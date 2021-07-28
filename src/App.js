@@ -12,7 +12,26 @@ const App = () => {
   const [showAddTask, setShowAddTask] = useState(false);
   const [tasks, setTasks] = useState([]);
 
-  useEffect(() => {
+  const toggleReminder = (id) => {
+    setTasks(
+      tasks.map((task) =>
+        task.id === id ? { ...task, reminder: !task.reminder } : task
+      )
+    );
+  };
+  const addTask = (task) => {
+    const id = Math.floor(Math.random() * 10000) + 1;
+    const newTask = { id, ...task };
+    setTasks([...tasks, newTask]);
+    console.log(tasks);
+  };
+  const deleteTask = (id) => {
+    setTasks(tasks.filter((task) => task.id != id));
+  };
+
+  // use JSON server to fetch task, fetch tasks, add task, delete task, toggle reminder
+
+  /* useEffect(() => {
     const getTasks = async () => {
       const tasksFromServer = await fetchTasks();
       setTasks(tasksFromServer);
@@ -85,7 +104,7 @@ const App = () => {
     });
 
     setTasks(tasks.filter((task) => task.id !== id));
-  };
+  }; */
 
   return (
     <Router>
